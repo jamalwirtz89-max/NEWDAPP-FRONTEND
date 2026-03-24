@@ -1,0 +1,344 @@
+/* ── Thème clair / sombre ───────────────────────────────────── */
+:root {
+  --background-light    : #ffffff;
+  --text-primary-light  : #333333;
+  --text-secondary-light: #555555;
+  --border-color-light  : #cccccc;
+  --accent-color-light  : #0702F8;
+  --input-bg-light      : #ffffff;
+  --disabled-bg-light   : #9B98FF;
+  --disabled-text-light : #ffffff;
+  --btn-text-light      : #ffffff;
+  --surface-light       : #f4f4f8;
+  --surface-border-light: #e8e8ef;
+
+  --background-dark     : #1a1a1a;
+  --text-primary-dark   : #e0e0e0;
+  --text-secondary-dark : #b0b0b0;
+  --border-color-dark   : #333333;
+  --accent-color-dark   : #48FF91;
+  --input-bg-dark       : #1a1a1a;
+  --disabled-bg-dark    : #2D764B;
+  --disabled-text-dark  : #1a1a1a;
+  --btn-text-dark       : #1B1E15;
+  --surface-dark        : #242424;
+  --surface-border-dark : #333333;
+
+  --background   : var(--background-light);
+  --text-primary : var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --border-color : var(--border-color-light);
+  --accent-color : var(--accent-color-light);
+  --input-bg     : var(--input-bg-light);
+  --disabled-bg  : var(--disabled-bg-light);
+  --disabled-text: var(--disabled-text-light);
+  --btn-text     : var(--btn-text-light);
+  --surface      : var(--surface-light);
+  --surface-border: var(--surface-border-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background   : var(--background-dark);
+    --text-primary : var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border-color : var(--border-color-dark);
+    --accent-color : var(--accent-color-dark);
+    --input-bg     : var(--input-bg-dark);
+    --disabled-bg  : var(--disabled-bg-dark);
+    --disabled-text: var(--disabled-text-dark);
+    --btn-text     : var(--btn-text-dark);
+    --surface      : var(--surface-dark);
+    --surface-border: var(--surface-border-dark);
+  }
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background: var(--background);
+  color: var(--text-primary);
+  touch-action: pan-x pan-y;
+}
+
+span { font-weight: 600; }
+
+/* ── Wallet container ───────────────────────────────────────── */
+.wallet-container {
+  width: 100%;
+  margin-top: 1rem;
+  max-width: 500px;
+  padding: 1.5rem;
+  min-height: 400px;
+}
+
+/* ── Input groups ───────────────────────────────────────────── */
+.input-group { margin-bottom: 1rem; position: relative; }
+
+.inpt_tital {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: var(--text-secondary);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-border {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  height: 53px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  background: var(--input-bg);
+  transition: border-color 0.2s;
+}
+.input-border:focus-within { border-color: var(--accent-color); }
+
+.input-left  { flex: 1; }
+.input-right { display: flex; align-items: center; gap: 0.5rem; padding-left: 0.5rem; }
+
+.custom-input {
+  width: 100%;
+  padding: 0.625rem;
+  border: none;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  background: none;
+  color: var(--text-primary);
+}
+.custom-input:focus { outline: none; }
+input::placeholder { font-size: clamp(0.875rem, 2vw, 1rem); font-weight: 600; color: #888; }
+
+.blue  { color: var(--accent-color); }
+.fees  { font-size: clamp(0.75rem, 2vw, 0.875rem); color: var(--text-secondary); margin-top: 0.5rem; }
+.mar_i { padding-left: 0.5rem; }
+.mt-7  { margin-top: 1.75rem; }
+
+/* ── Wallet badge (adresse connectée) ───────────────────────── */
+.wallet-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  width: fit-content;
+  font-size: 0.8rem;
+}
+
+.wallet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.wallet-addr {
+  font-family: "Courier New", monospace;
+  color: var(--text-primary);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.wallet-disconnect {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0 0 0 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.wallet-disconnect:hover { color: #ef4444; }
+
+/* ── Status message ─────────────────────────────────────────── */
+.status-msg {
+  font-size: 0.8rem;
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+  text-align: center;
+}
+.status-msg.info  { color: var(--accent-color); }
+.status-msg.error { color: #ef4444; }
+
+/* ── Bouton principal ───────────────────────────────────────── */
+.send-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  background: var(--accent-color);
+  color: var(--btn-text);
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: opacity 0.2s, background 0.3s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.send-btn:hover:not(:disabled) { opacity: 0.88; }
+.send-btn:disabled {
+  background: var(--disabled-bg);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+}
+
+/* ── Spinner ────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Modals ─────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+.modal-sheet {
+  background: var(--background);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  animation: slideUp 0.25s ease-out forwards;
+}
+
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--surface);
+  border: none;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--surface-border); color: var(--text-primary); }
+
+.modal-content { text-align: center; }
+.modal-icon  { margin: 2rem auto 1.5rem; }
+.modal-icon img { width: 9rem; margin: 0 auto; }
+.modal-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
+.modal-text  { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1.25rem; line-height: 1.6; font-weight: 400; }
+
+.modal-btn {
+  display: block; width: 100%;
+  background: #23402e;
+  color: #3a9f64;
+  border: none; border-radius: 9999px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  text-align: center;
+  transition: background 0.15s;
+}
+.modal-btn:hover { background: #1c3324; }
+
+/* ── Wallet options (modal de connexion) ────────────────────── */
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.wallet-option:hover {
+  border-color: var(--accent-color);
+  background: var(--input-bg);
+}
+.wallet-option:last-child { margin-bottom: 0; }
+
+.wallet-option-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.wc-icon { border-radius: 10px; }
+
+.wallet-option-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.wallet-option-info strong {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+.wallet-option-info span {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.wallet-option-chevron {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .wallet-container { padding: 0.75rem; }
+  .input-right { gap: 0.25rem; }
+  .send-btn {
+    position: fixed;
+    bottom: 20px;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+}
+
+@media (min-width: 768px) {
+  .wallet-container { padding: 2rem; }
+}
